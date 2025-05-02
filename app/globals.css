@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3%;
+    --foreground: 210 40% 98%;
+
+    --card: 0 0% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 0 0% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 355 100% 45%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 240 5% 10%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 240 5% 12%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 355 100% 45%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 240 5% 15%;
+    --input: 240 5% 15%;
+    --ring: 355 100% 45%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-crimson);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-inter);
+  }
+}
+
+@layer components {
+  .glitch-effect {
+    animation: glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    position: relative;
+  }
+
+  .glitch-effect::before,
+  .glitch-effect::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    pointer-events: none;
+  }
+
+  .glitch-effect::before {
+    left: 2px;
+    background: rgba(255, 0, 0, 0.2);
+    animation: glitch-anim-1 0.2s infinite linear alternate-reverse;
+  }
+
+  .glitch-effect::after {
+    left: -2px;
+    background: rgba(0, 255, 255, 0.2);
+    animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
+  }
+
+  .text-distortion {
+    display: inline-block;
+    position: relative;
+  }
+
+  .text-distortion::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    top: 0;
+    color: rgba(255, 0, 0, 0.8);
+    overflow: hidden;
+    clip-path: inset(0 0 0 0);
+  }
+
+  .text-distortion::before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    top: 0;
+    color: rgba(0, 255, 255, 0.8);
+    overflow: hidden;
+    clip-path: inset(0 0 0 0);
+  }
+
+  .paranoid-filter {
+    filter: contrast(1.2) saturate(0.8) brightness(0.9);
+  }
+
+  .delusional-filter {
+    filter: hue-rotate(10deg) saturate(1.2) brightness(1.1);
+  }
+
+  .memory-fragment {
+    @apply border border-primary/30 bg-black/50 p-4 rounded-md shadow-md transition-all duration-300;
+    backdrop-filter: blur(2px);
+  }
+
+  .memory-fragment:hover {
+    @apply border-primary/60 shadow-lg;
+    transform: translateY(-2px);
+  }
+
+  .memory-fragment.dragging {
+    @apply border-primary shadow-xl;
+    opacity: 0.8;
+  }
+
+  .memory-fragment.correct-position {
+    @apply border-green-500/60;
+  }
+
+  .memory-fragment.incorrect-position {
+    @apply border-red-500/60;
+  }
+
+  .reality-shift {
+    animation: reality-shift 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+  }
+  20% {
+    clip-path: inset(60% 0 40% 0);
+  }
+  40% {
+    clip-path: inset(40% 0 60% 0);
+  }
+  60% {
+    clip-path: inset(80% 0 20% 0);
+  }
+  80% {
+    clip-path: inset(10% 0 90% 0);
+  }
+  100% {
+    clip-path: inset(30% 0 70% 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(10% 0 90% 0);
+  }
+  20% {
+    clip-path: inset(30% 0 70% 0);
+  }
+  40% {
+    clip-path: inset(50% 0 50% 0);
+  }
+  60% {
+    clip-path: inset(70% 0 30% 0);
+  }
+  80% {
+    clip-path: inset(90% 0 10% 0);
+  }
+  100% {
+    clip-path: inset(20% 0 80% 0);
+  }
+}
+
+@keyframes reality-shift {
+  0% {
+    filter: blur(0);
+    transform: scale(1);
+  }
+  50% {
+    filter: blur(10px);
+    transform: scale(1.05);
+  }
+  100% {
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
